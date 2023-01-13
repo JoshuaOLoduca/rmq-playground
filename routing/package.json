@@ -1,0 +1,15 @@
+{
+  "name": "pub-sub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "emit_log.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:emit": "nodemon emit_log.js",
+    "start:receive": "nodemon receive_logs.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
