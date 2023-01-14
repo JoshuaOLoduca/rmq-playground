@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:emit": "nodemon emit_log_topic.js",
-    "start:receive": "nodemon receive_logs_topic.js"
+    "start:client": "nodemon rpc_client.js",
+    "start:server": "nodemon rpc_server.js"
   },
   "keywords": [],
   "author": "",
