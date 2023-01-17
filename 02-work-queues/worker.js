@@ -15,11 +15,14 @@ amqp.connect(settings.host, (error0, connection) => {
 
     // So we only recieve 1 message at a time, and will only get a new one after we ack the one we recieved
     // Setting global to true enforces the limit by combining the recieved messages on all channels for this worker
-    channel.prefetch(1, false);
+    channel.prefetch(10);
 
     // as a listener, we make sure the queue exists so that we dont crash if we start before the senders
     channel.assertQueue(queueName, {
       durable: true /* durable: true means queue will survive broker restart */,
+      arguments: {
+        "x-single-active-consumer": true, // makes it so first consumer to connect handles all requests, but if it closes, all messages get pushed to next consumer registered to channel
+      },
     });
 
     channel.consume(

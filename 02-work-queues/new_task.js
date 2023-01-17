@@ -15,13 +15,18 @@ amqp.connect(settings.host, (error0, connection) => {
 
     channel.assertQueue(queueName, {
       durable: true /* durable: true means queue will survive broker restart */,
+      arguments: {
+        "x-single-active-consumer": true,
+      },
     });
 
-    // queues message to be recieved by ./recieve.js
-    channel.sendToQueue(queueName, Buffer.from(message), {
-      persistent: true,
-    });
-    console.log("Sent %s", message);
+    for (let i = 0; i < 20; i++) {
+      // queues message to be recieved by ./recieve.js
+      channel.sendToQueue(queueName, Buffer.from(message + ".".repeat(i)), {
+        persistent: true,
+      });
+      console.log("Sent %s", message);
+    }
 
     setTimeout(function () {
       connection.close();
